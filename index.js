@@ -1,5 +1,5 @@
 import express from 'express';
-import myList from './data'
+import myList from './data.js'
 
 const app = express();
 
