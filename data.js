@@ -1,52 +1,24 @@
 
     const myList = [
         {
-            action:'read my book',
-            complete: true,        
-        },
-        {
-            action:'do yoga',
-            complete: false,        
-        },
-        {
-            action:'cook dinner',
-            complete: false,        
-        },
-        {
-            action:'codewars',
-            complete: true,        
-        },
-        {
-            action:'toilet paper',
-            complete: false,        
-        },
-        {
-            action:'session prep',
-            complete: false,        
-        },
-        {
-            action:'read my book',
-            complete: true,        
-        },
-        {
-            action:'do yoga',
-            complete: false,        
-        },
-        {
-            action:'cook dinner',
-            complete: false,        
-        },
-        {
-            action:'codewars',
-            complete: true,        
-        },
-        {
-            action:'toilet paper',
-            complete: false,        
-        },
-        {
-            action:'session prep',
-            complete: false,        
+            user:'Noah',
+            list:[
+                {
+                    itemNumber:1,
+                    action:'session prep',
+                    complete: false,        
+                },
+                {
+                    itemNumber:2,
+                    action:'read The Black Company',
+                    complete: false,        
+                },
+                {
+                    itemNumber:3,
+                    action:'Do some Codewars',
+                    complete: false,        
+                },
+            ]
         },
     ];
 
