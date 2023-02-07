@@ -9,12 +9,12 @@ const uri =
 const client = new MongoClient(uri);
 async function run() {
   try {
-    const database = client.db('sample_mflix');
-    const movies = database.collection('movies');
+    const database = client.db('test_todolist');
+    const movies = database.collection('to_do_list');
     // Query for a movie that has the title 'Back to the Future'
-    const query = { title: 'Back to the Future' };
-    const movie = await movies.findOne(query);
-    console.log(movie);
+    const query = { action: 'read the Black Company' };
+    const response = await movies.findOne(query);
+    console.log(response);
   } finally {
     // Ensures that the client will close when you finish/error
     await client.close();
