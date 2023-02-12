@@ -8,5 +8,7 @@
 //write models 
 
 //write db queries
+    //Getall
+    //
 
 //
