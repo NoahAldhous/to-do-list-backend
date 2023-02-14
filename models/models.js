@@ -1,9 +1,6 @@
-//CRUD functions exported from here
-
 import { MongoClient } from "mongoDB";
 
-const uri = 
-'mongodb+srv://Naldhous:6rF5YYN6P1pTvHEq@cluster0.b7iqhrp.mongodb.net/?retryWrites=true&w=majority'
+const uri = process.env.MONGO_URI
 
 const client = new MongoClient(uri);
 
