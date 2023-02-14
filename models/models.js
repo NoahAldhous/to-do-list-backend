@@ -35,3 +35,34 @@ export async function getAllItems(){
   
     }
 }
+
+//ADD NEW ITEM TO LIST
+export async function addItem(newItem){
+  console.log('create request received!')
+  console.log(newItem);
+  try {
+
+    //ensures connection to MongoDB  
+    await client.connect();
+  
+    //connect to database
+    const database = client.db('test_todolist');
+
+    //connect to collection within database
+    const toDoList = database.collection('to_do_list');
+    
+    //define document
+    const doc = { action: newItem.action, completed: newItem.completed };
+    
+    const result = await toDoList.insertOne(doc);
+
+    console.log(
+      `A document was inserted with the _id: ${result.insertedId}`,
+    );
+    return result;
+    } finally {
+
+      await client.close();
+
+    }
+}
