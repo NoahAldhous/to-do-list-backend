@@ -23,7 +23,7 @@ listRouter.get('/', async function (req,res) {
 listRouter.post("/", async function (req,res) {
   console.log('POST request received...');
   const newItem = req.body;
-  console.log(`new Item to be added is ${newItem}`);
+  console.log(`new Item to be added is action : ${newItem.action}, completed: ${newItem.completed}`);
   const addedItem = await addItem(newItem);
   const responseObject = {
     request:'received',
