@@ -1,14 +1,14 @@
-//plan goes here
-//write routes 
-    //Get
-    //Put
-    //Patch
-    //Delete
+/*
+ROUTES 
+    GET✅
+    POST✅
+    PUT(?)
+    PATCH
+    DELETE
+MODELS 
+    GET ALL ITEMS✅
+    CREATE NEW ITEM✅
+    EDIT ITEM
+    DELETE ITEM
+*/
 
-//write models 
-
-//write db queries
-    //Getall
-    //g
-
-//
