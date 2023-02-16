@@ -38,7 +38,7 @@ listRouter.put("/:id", async function (req,res) {
   console.log('PUT request received...');
   const itemId = req.params.id
   const editedItem = req.body
-  const response = await updateItem(itemId, editedItem)
+  const response = await updateItem(itemId, editedItem).catch(console.dir)
   const responseObject = {
     request: 'recieved',
     success: true,
