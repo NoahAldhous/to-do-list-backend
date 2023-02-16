@@ -2,7 +2,7 @@
 
 import express from 'express';
 // import { Router } from 'express';
-import { addItem, deleteItem, getAllItems } from '../models/models.js';
+import { addItem, deleteItem, getAllItems, updateItem } from '../models/models.js';
 
 //CREATING ROUTER
 const listRouter = express.Router()
@@ -29,6 +29,20 @@ listRouter.post("/", async function (req,res) {
     request:'received',
     success: true,
     message: addedItem,
+  };
+  res.status(201).json(responseObject);
+});
+
+//PUT request
+listRouter.put("/:id", async function (req,res) {
+  console.log('PUT request received...');
+  const itemId = req.params.id
+  const editedItem = req.body
+  const response = await updateItem(itemId, editedItem)
+  const responseObject = {
+    request: 'recieved',
+    success: true,
+    message: response,
   };
   res.status(201).json(responseObject);
 });

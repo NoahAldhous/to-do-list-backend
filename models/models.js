@@ -45,14 +45,14 @@ export async function addItem(newItem){
 }
 
 //UPDATE EXISTING ITEM
-export async function updateItem(updatedItem){
+export async function updateItem(itemId, editedItem){
   console.log('updating existing item...')
   try {
     //connects to 'toDoList' collection within the Database
-    const toDoList = connectToDatabase();
+    const toDoList = await connectToDatabase();
 
     //defines which item to look for 
-    const filter = { _id: new ObjectId(updatedItem.id) };
+    const filter = { _id: new ObjectId(itemId) };
 
     // this option instructs the method to create an Item if no documents match the filter
     const options = { upsert: true };
@@ -60,16 +60,17 @@ export async function updateItem(updatedItem){
     // create an Item that sets the plot of the movie
     const updateItem = {
       $set: {
-        action: updatedItem.action,
-        completed:updatedItem.completed
+        action: editedItem.action,
+        completed:editedItem.completed
       },
     };
-    const result = await movies.updateOne(filter, updateItem, options);
-    console.log(
-      `${result.matchedCount} document(s) matched the filter, updated ${result.modifiedCount} document(s)`,
-    );
+
+    const result = await toDoList.updateOne(filter, updateItem, options);
+
+    return `${result.matchedCount} document(s) matched the filter, updated ${result.modifiedCount} document(s)`
+
   } finally {
-    await client.close();
+    await closeConnection();
   }
 }
 
