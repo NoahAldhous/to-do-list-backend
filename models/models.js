@@ -44,6 +44,35 @@ export async function addItem(newItem){
     }
 }
 
+//UPDATE EXISTING ITEM
+export async function updateItem(updatedItem){
+  console.log('updating existing item...')
+  try {
+    //connects to 'toDoList' collection within the Database
+    const toDoList = connectToDatabase();
+
+    //defines which item to look for 
+    const filter = { _id: new ObjectId(updatedItem.id) };
+
+    // this option instructs the method to create an Item if no documents match the filter
+    const options = { upsert: true };
+
+    // create an Item that sets the plot of the movie
+    const updateItem = {
+      $set: {
+        action: updatedItem.action,
+        completed:updatedItem.completed
+      },
+    };
+    const result = await movies.updateOne(filter, updateItem, options);
+    console.log(
+      `${result.matchedCount} document(s) matched the filter, updated ${result.modifiedCount} document(s)`,
+    );
+  } finally {
+    await client.close();
+  }
+}
+
 //DELETE ITEM FROM DATABASE
 export async function deleteItem(itemId){
   console.log('deleting item from database...')
