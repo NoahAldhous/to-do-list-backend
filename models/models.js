@@ -34,7 +34,7 @@ export async function getAllItems(){
     }
 }
 
-//ADD NEW ITEM TO LIST
+//INSERT NEW ITEM INTO LIST
 export async function addItem(newItem){
   console.log(`inserting new Item into Database...`)
   try {
