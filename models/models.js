@@ -1,4 +1,4 @@
-import { MongoClient } from "mongoDB";
+import { MongoClient, ObjectId } from "mongoDB";
 import dotenv from 'dotenv';
 
 dotenv.config();
@@ -25,7 +25,6 @@ export async function getAllItems(){
 
       //converts what is found to an array
       const response = await cursor.toArray();
-      console.log(response);
 
       return response;
     } finally {
@@ -79,7 +78,8 @@ export async function deleteItem(itemId){
     const toDoList = database.collection('to_do_list');
 
     //define the query that Mongo will use to look for item
-    const query = { id : itemId}
+    //needs to use new ObjectId() to find the item by _id
+    const query = { _id : new ObjectId(itemId)}
 
     //delete one item that matches this id
     const result = await toDoList.deleteOne(query)
@@ -87,7 +87,7 @@ export async function deleteItem(itemId){
     //checking if one item was deleted from toDoList
     if (result.deletedCount === 1) {
       console.log("Successfully deleted one document.");
-      return result;
+      return true;
     } else {
       console.log("No documents matched the query. Deleted 0 documents.");
       return false;

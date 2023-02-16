@@ -2,7 +2,7 @@
 
 import express from 'express';
 // import { Router } from 'express';
-import { addItem, getAllItems } from '../models/models.js';
+import { addItem, deleteItem, getAllItems } from '../models/models.js';
 
 //CREATING ROUTER
 const listRouter = express.Router()
@@ -24,7 +24,7 @@ listRouter.post("/", async function (req,res) {
   console.log('POST request received...');
   const newItem = req.body;
   console.log(`new Item to be added is action : ${newItem.action}, completed: ${newItem.completed}`);
-  const addedItem = await addItem(newItem);
+  const addedItem = await addItem(newItem).catch(console.dir);
   const responseObject = {
     request:'received',
     success: true,
@@ -34,8 +34,16 @@ listRouter.post("/", async function (req,res) {
 });
 
 //DELETE request
-listRouter.delete("/", async function (req,res) {
-
+listRouter.delete("/:id", async function (req,res) {
+  console.log(`DELETE request received...`);
+  const itemId = req.params.id;
+  console.log(`deleting item with id: ${itemId}`);
+  const itemDeleted = await deleteItem(itemId).catch(console.dir);
+  if(!itemDeleted){
+    res.status(500).send('could not find item');
+  }else{
+    res.status(200).send('item deleted')
+  }
 });
 
 export default listRouter;
