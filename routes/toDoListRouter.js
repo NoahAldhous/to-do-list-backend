@@ -31,6 +31,11 @@ listRouter.post("/", async function (req,res) {
     message: addedItem,
   };
   res.status(201).json(responseObject);
-})
+});
+
+//DELETE request
+listRouter.delete("/", async function (req,res) {
+
+});
 
 export default listRouter;

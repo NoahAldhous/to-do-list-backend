@@ -1,20 +1,21 @@
 import { MongoClient } from "mongoDB";
+import dotenv from 'dotenv';
 
-const uri = 
-'mongodb+srv://Naldhous:6rF5YYN6P1pTvHEq@cluster0.b7iqhrp.mongodb.net/?retryWrites=true&w=majority'
+dotenv.config();
+
+const uri = process.env.MONGO_URI;
 
 const client = new MongoClient(uri);
-async function run() {
-  try {
-    const database = client.db('sample_mflix');
-    const movies = database.collection('movies');
-    // Query for a movie that has the title 'Back to the Future'
-    const query = { title: 'Back to the Future' };
-    const movie = await movies.findOne(query);
-    console.log(movie);
-  } finally {
-    // Ensures that the client will close when you finish/error
-    await client.close();
-  }
+
+export async function connectToDataBase(){
+        //ensures connection to MongoDB  
+        await client.connect();
+    
+        //connect to database
+        const database = client.db('test_todolist');
+  
+        //connect to collection within database
+        const toDoList = database.collection('to_do_list');
+
+  return toDoList
 }
-run().catch(console.dir);

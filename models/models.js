@@ -9,9 +9,8 @@ const client = new MongoClient(uri);
 
 //GET ALL ITEMS
 export async function getAllItems(){
-    console.log('get request received!')
+    console.log('getting all Items from database...')
     try {
-
       //ensures connection to MongoDB  
       await client.connect();
     
@@ -38,8 +37,7 @@ export async function getAllItems(){
 
 //ADD NEW ITEM TO LIST
 export async function addItem(newItem){
-  console.log('create request received!')
-  console.log(newItem);
+  console.log(`inserting new Item into Database...`)
   try {
 
     //ensures connection to MongoDB  
@@ -65,4 +63,37 @@ export async function addItem(newItem){
       await client.close();
 
     }
+}
+
+//DELETE ITEM FROM DATABASE
+export async function deleteItem(itemId){
+  console.log('deleting item from database...')
+  try{
+    //ensures connection to MongoDB  
+    await client.connect();
+    
+    //connect to database
+    const database = client.db('test_todolist');
+    
+    //connect to collection within database
+    const toDoList = database.collection('to_do_list');
+
+    //define the query that Mongo will use to look for item
+    const query = { id : itemId}
+
+    //delete one item that matches this id
+    const result = await toDoList.deleteOne(query)
+    
+    //checking if one item was deleted from toDoList
+    if (result.deletedCount === 1) {
+      console.log("Successfully deleted one document.");
+      return result;
+    } else {
+      console.log("No documents matched the query. Deleted 0 documents.");
+      return false;
+    }
+      
+  } finally {
+    await client.close()
+  }
 }
