@@ -1,25 +1,14 @@
-import { MongoClient, ObjectId } from "mongoDB";
-import dotenv from 'dotenv';
-
-dotenv.config();
-
-const uri = process.env.MONGO_URI;
-
-const client = new MongoClient(uri);
+import { ObjectId } from "mongoDB";
+import { connectToDatabase, closeConnection } from '../db/index.js'
 
 //GET ALL ITEMS
 export async function getAllItems(){
     console.log('getting all Items from database...')
     try {
-      //ensures connection to MongoDB  
-      await client.connect();
-    
-      //connect to database
-      const database = client.db('test_todolist');
 
-      //connect to collection within database
-      const toDoList = database.collection('to_do_list');
-
+      //connects to 'toDoList' collection in the database
+      const toDoList = await connectToDatabase();
+      
       //finds all {} (objects) within the collection
       const cursor = toDoList.find({});
 
@@ -29,8 +18,7 @@ export async function getAllItems(){
       return response;
     } finally {
       // Ensures that the client will close when you finish/error
-      await client.close();
-  
+      await closeConnection();
     }
 }
 
@@ -39,14 +27,8 @@ export async function addItem(newItem){
   console.log(`inserting new Item into Database...`)
   try {
 
-    //ensures connection to MongoDB  
-    await client.connect();
-  
-    //connect to database
-    const database = client.db('test_todolist');
-
-    //connect to collection within database
-    const toDoList = database.collection('to_do_list');
+    //connects to 'toDoList' collection in the database
+    const toDoList = await connectToDatabase();
     
     //define document
     const doc = { action: newItem.action, completed: newItem.completed };
@@ -58,9 +40,7 @@ export async function addItem(newItem){
     );
     return result;
     } finally {
-
-      await client.close();
-
+      await closeConnection();
     }
 }
 
@@ -68,14 +48,9 @@ export async function addItem(newItem){
 export async function deleteItem(itemId){
   console.log('deleting item from database...')
   try{
-    //ensures connection to MongoDB  
-    await client.connect();
     
-    //connect to database
-    const database = client.db('test_todolist');
-    
-    //connect to collection within database
-    const toDoList = database.collection('to_do_list');
+    //connects to 'toDoList' collection in the database
+    const toDoList = await connectToDatabase();
 
     //define the query that Mongo will use to look for item
     //needs to use new ObjectId() to find the item by _id
@@ -94,6 +69,6 @@ export async function deleteItem(itemId){
     }
       
   } finally {
-    await client.close()
+    await closeConnection();
   }
 }
