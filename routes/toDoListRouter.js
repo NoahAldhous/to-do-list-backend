@@ -40,7 +40,7 @@ listRouter.put("/:id", async function (req,res) {
   const editedItem = req.body
   const response = await updateItem(itemId, editedItem).catch(console.dir)
   const responseObject = {
-    request: 'recieved',
+    request: 'received',
     success: true,
     message: response,
   };
@@ -54,9 +54,19 @@ listRouter.delete("/:id", async function (req,res) {
   console.log(`deleting item with id: ${itemId}`);
   const itemDeleted = await deleteItem(itemId).catch(console.dir);
   if(!itemDeleted){
-    res.status(500).send('could not find item');
+    const responseObject = {
+      request: 'received',
+      success: false,
+      message: 'could not find item'
+    }
+    res.status(500).json(responseObject);
   }else{
-    res.status(200).send('item deleted')
+    const responseObject = {
+      request: 'received',
+      success: true,
+      message: 'item deleted'
+    }
+    res.status(200).json(responseObject)
   }
 });
 
