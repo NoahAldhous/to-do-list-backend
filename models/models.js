@@ -1,4 +1,4 @@
-import { ObjectId } from "../node_modules/mongodb/mongodb.js";
+// import { ObjectId } from "mongodb";
 import { connectToDatabase, closeConnection } from '../db/index.js'
 
 //GET ALL ITEMS
