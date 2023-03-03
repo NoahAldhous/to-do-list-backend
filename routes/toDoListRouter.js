@@ -28,7 +28,7 @@ listRouter.post("/", async function (req,res) {
   const responseObject = {
     request:'received',
     success: true,
-    message: addedItem,
+    message: `added new item to database: action : ${addedItem.action}, completed: ${addedItem.completed}`,
   };
   res.status(201).json(responseObject);
 });
