@@ -11,9 +11,9 @@ app.use(express.json());
 
 //allowing cross origin requests
 app.use(function(req, res, next) {
-    app.use(cors({ origin: ["http://localhost:3000", "https://storied-unicorn-46d331.netlify.app/"] }))
     console.log(req.hostname)
-    res.header("Access-Control-Allow-Origin", "http://localhost:3000/");
+    // res.header("Access-Control-Allow-Origin", "http://localhost:3000/");
+    cors({ origin: ["http://localhost:3000/", "https://storied-unicorn-46d331.netlify.app/"] })
     res.header("Access-Control-Allow-Headers", "X-Requested-With");
     res.setHeader("Access-Control-Allow-Methods", "GET,HEAD,OPTIONS,POST,PUT,DELETE");
     res.setHeader("Access-Control-Allow-Headers", "Access-Control-Allow-Headers, Origin,Accept, X-Requested-With, Content-Type, Access-Control-Request-Method, Access-Control-Request-Headers")
