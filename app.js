@@ -3,13 +3,16 @@ const app = express();
 import dotenv from 'dotenv';
 dotenv.config();
 const PORT = process.env.PORT || 3001;
-import listRouter from './routes/toDoListRouter.js'
+import listRouter from './routes/toDoListRouter.js';
+import cors from 'cors';
 
 //unpacks request bodies
 app.use(express.json());
 
 //allowing cross origin requests
 app.use(function(req, res, next) {
+    app.use(cors({ origin: ["http://localhost:3000", "https://storied-unicorn-46d331.netlify.app/"] }))
+    console.log(req.hostname)
     res.header("Access-Control-Allow-Origin", "http://localhost:3000/");
     res.header("Access-Control-Allow-Headers", "X-Requested-With");
     res.setHeader("Access-Control-Allow-Methods", "GET,HEAD,OPTIONS,POST,PUT,DELETE");
