@@ -25,10 +25,12 @@ listRouter.post("/", async function (req,res) {
   const newItem = req.body;
   console.log(`new Item to be added is action : ${newItem.action}, completed: ${newItem.completed}`);
   const addedItem = await addItem(newItem).catch(console.dir);
+  console.log(addedItem);
   const responseObject = {
     request:'received',
     success: true,
-    message: `added new item to database: action : ${addedItem.action}, completed: ${addedItem.completed}`,
+    message: `added new item to database: action : ${newItem.action}, completed: ${newItem.completed}`,
+    id: `${addedItem.insertedId}`
   };
   res.status(201).json(responseObject);
 });
